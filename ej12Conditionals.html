@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicie 12</title>
+</head>
+<body>
+
+    <input id="inputNumber" type="number">
+    <button onclick="sendNumber()"> Enviar</button>
+
+    <p id="pNumber"></p>
+
+    <script>
+        function sendNumber(){
+            let num = document.getElementById("inputNumber").value;
+            let length = num.length;
+            if (length > 5){
+                document.getElementById("pNumber").innerHTML = "No puede tener mas de 5 cifras";
+            }
+            else{
+                document.getElementById("pNumber").innerHTML = num.padStart(5, "0");;
+            }
+        }
+    </script>
+
+    
+</body>
+</html>
