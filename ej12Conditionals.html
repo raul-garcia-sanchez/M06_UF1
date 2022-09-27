@@ -9,21 +9,39 @@
 <body>
 
     <input id="inputNumber" type="number">
-    <button onclick="sendNumber()"> Enviar</button>
+    <button id="boton"> Enviar</button>
 
     <p id="pNumber"></p>
 
     <script>
         function sendNumber(){
-            let num = document.getElementById("inputNumber").value;
-            let length = num.length;
-            if (length > 5){
-                document.getElementById("pNumber").innerHTML = "No puede tener mas de 5 cifras";
+            const num = document.getElementById("inputNumber").value;
+            const length = num.length;
+            if (num >= 0){
+                if (Number.isInteger(Number(num))){
+                    if (length > 5){
+                    document.getElementById("pNumber").innerHTML = "La longitud no puede ser mayor a 5";
+                    }
+                    else{
+                    document.getElementById("pNumber").innerHTML = num.padStart(5, "0");
+                    }
+            }
+                else{
+                    document.getElementById("pNumber").innerHTML = "No puede ser un numero decimal.";
+                }
             }
             else{
-                document.getElementById("pNumber").innerHTML = num.padStart(5, "0");;
+                document.getElementById("pNumber").innerHTML = "No puede ser un numero negativo.";
             }
         }
+
+        document.addEventListener("keypress", function(event){
+            if (event.keyCode === 13 || event.which === 13){
+                sendNumber();
+            }
+        })
+       
+
     </script>
 
     
