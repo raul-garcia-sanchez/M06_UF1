@@ -11,24 +11,39 @@
 
     <input id="inputTiradas" type="number">
     <input id="inputNumDados" type="number">
-    <button> A jugar</button>
+    <button onclick="game()"> A jugar</button>
     <label id="labelTiradas"></label>
 
     <script>
 
-        const tiradas = Number(document.getElementById("inputTiradas").value);
-        const numDados = Number(document.getElementById("inputDados").value);
+        function game(){
 
-        var dictDados = {};
-        for(let i = 0; i<tiradas; i++){
-            for(let j = 0; j < numDados; j++){
-                let numRandom1 = Math.random()*(6)+1;
-                if(existe clave q es numRnaodm1 )
+            const tiradas = document.getElementById("inputTiradas").value;
+            const numDados = document.getElementById("inputNumDados").value;
 
-                key NUMERODADO valor LAS VECES QUE SE REPITE
-                //https://es.acervolima.com/como-crear-un-diccionario-y-agregar-pares-clave-valor-de-forma-dinamica/
+            var arrayTiradas = [];
+            var dictDados = new Map();
+            var repeticiones = 0;
+            for(let i = 0; i<tiradas; i++){
+                console.log(i);
+                arrayTiradas.push([]);
+                for(let j = 0; j < numDados; j++){
+                    let numRandom1 = Math.random()*(6)+1;
+                    arrayTiradas[i].push(numRandom1);
+                    if(dictDados.has(numRandom1)){
+                        let repeticiones = dictDados.get(numRandom1);
+                        dictDados.delete(numRandom1);
+                        dictDados.set(numRandom1,repeticiones+1);
+                    }
+                    else{
+                        dictDados.set(numRandom1,repeticiones+1);
+                    }
+                }
+                console.log(arrayTiradas);
             }
+
         }
+        
 
     </script>
 
