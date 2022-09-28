@@ -12,23 +12,22 @@
     <input id="inputTiradas" type="number">
     <input id="inputNumDados" type="number">
     <button onclick="game()"> A jugar</button>
-    <label id="labelTiradas"></label>
 
     <script>
 
         function game(){
 
-            const tiradas = document.getElementById("inputTiradas").value;
-            const numDados = document.getElementById("inputNumDados").value;
+            let tiradas = document.getElementById("inputTiradas").value;
+            let numDados = document.getElementById("inputNumDados").value;
 
+            
             var arrayTiradas = [];
             var dictDados = new Map();
             var repeticiones = 0;
             for(let i = 0; i<tiradas; i++){
-                console.log(i);
                 arrayTiradas.push([]);
                 for(let j = 0; j < numDados; j++){
-                    let numRandom1 = Math.random()*(6)+1;
+                    let numRandom1 = Math.floor(Math.random()*(6))+1;
                     arrayTiradas[i].push(numRandom1);
                     if(dictDados.has(numRandom1)){
                         let repeticiones = dictDados.get(numRandom1);
@@ -39,9 +38,44 @@
                         dictDados.set(numRandom1,repeticiones+1);
                     }
                 }
-                console.log(arrayTiradas);
+
+                const newDiv = document.createElement("div");
+                const newContent = document.createTextNode("Tirada "+i+" => "+arrayTiradas[i]);
+                newDiv.appendChild(newContent);
+                const currentDiv = document.getElementById("div1");
+                document.body.insertBefore(newDiv, currentDiv);
             }
 
+            for(var [key,value] of dictDados){
+                console.log(key + " = "+value);
+            }
+
+            const numMenosRepetido = Math.min(...dictDados.values());
+            const numMasRepetido = Math.max(...dictDados.values());
+
+            let numRepeMax = "";
+            let numRepeMin = "";
+            for (var [key, value] of dictDados){
+                if(value == numMasRepetido){
+                    numRepeMax += key + ",";
+                }
+                else if (value == numMenosRepetido){
+                    numRepeMin += key+",";
+                }
+            }
+            const newDiv = document.createElement("div");
+            numRepeMax = numRepeMax.substring(0, numRepeMax.length -1);
+            const newContent = document.createTextNode("Numero mas repetido => "+numRepeMax);
+            newDiv.appendChild(newContent);
+            const currentDiv = document.getElementById("div1");
+            document.body.insertBefore(newDiv, currentDiv);
+
+            const newDiv2 = document.createElement("div");
+            numRepeMin = numRepeMin.substring(0, numRepeMin.length -1);
+            const newContent2 = document.createTextNode("Numero menos repetido => "+numRepeMin);
+            newDiv2.appendChild(newContent2);
+            const currentDiv2 = document.getElementById("div1");
+            document.body.insertBefore(newDiv2, currentDiv2);
         }
         
 
