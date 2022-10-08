@@ -5,20 +5,23 @@ function generateList(text,separator){
     return text.split(separator);
 }
 
-function generateGroup(quantity){
+function generateGroup(people,peopleInGroup){
     let stringNames = getStringNames();
     let listNames = generateList(stringNames,",");
-    for(let i=0; i<quantity; i++){
+    let count = 0;
+    let group = "";
+    for(let i=0; i<people; i++){
         let random = getRandom(0,listNames.length-1);
         let alumnName = getAlumnByIndex(listNames,random);
         listNames = deleteAlumnByIndex(listNames,random);
-        if (i % 3 == 0){
-            printGroup("Group "+i+": "+alumnName);
+        count = count +1;
+        group = group + alumnName + " ";
+        if (count % peopleInGroup == 0){
+            printGroup("Grupo -> " +group);
+            group = "";
         }
-        //falta imprmir bien los grupos rollo de 3 en 3 y todo eso
-        
-        
     }
+    printGroup("Grupo -> "+group);
 }
 
 function deleteAlumnByIndex(list,index){
@@ -41,5 +44,5 @@ function getRandom(min,max){
 }
 
 function printGroup(name){
-    document.getElementById("pGroup").innerHTML += name + " ";
+    document.getElementById("pGroup").innerHTML += name + "<br>";
 }
