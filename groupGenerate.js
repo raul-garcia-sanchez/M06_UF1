@@ -12,14 +12,24 @@ function generateGroup(quantity){
         let random = getRandom(0,listNames.length-1);
         let alumnName = getAlumnByIndex(listNames,random);
         listNames = deleteAlumnByIndex(listNames,random);
-        printGroup(alumnName);
-        console.log(listNames);
+        if (i % 3 == 0){
+            printGroup("Group "+i+": "+alumnName);
+        }
+        //falta imprmir bien los grupos rollo de 3 en 3 y todo eso
+        
+        
     }
-    
 }
 
 function deleteAlumnByIndex(list,index){
-    return list.splice(index);
+    delete list[index]
+    let auxList = [];
+    for(let i = 0; i<list.length; i++){
+        if(list[i] != null){
+            auxList.push(list[i]);
+        }
+    }
+    return auxList;
 }
 
 function getAlumnByIndex(list,index){
@@ -27,7 +37,7 @@ function getAlumnByIndex(list,index){
 }
 
 function getRandom(min,max){
-    return Math.floor(Math.random(min,max-1))+1;
+    return Math.floor(Math.random()*(max))+min;
 }
 
 function printGroup(name){
