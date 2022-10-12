@@ -11,26 +11,34 @@ function generateGroup(){
     let listNames = generateList(stringNames,",");
     console.log(listNames);
     let group = "";
-    if (listNames.length >=3){
-        for(let i=0; i<3; i++){
-            let random = getRandom(0,listNames.length);
-            let alumnName = getAlumnByIndex(listNames,random);
-            listNames = deleteAlumnByIndex(listNames,random);
-            group = group + alumnName + " ";
+    let inputName = document.getElementById("inputNames");
+    if (inputName.value.length != 0){
+        if (listNames.length >=3){
+            for(let i=0; i<3; i++){
+                let random = getRandom(0,listNames.length);
+                let alumnName = getAlumnByIndex(listNames,random);
+                listNames = deleteAlumnByIndex(listNames,random);
+                group = group + alumnName + " ";
+                console.log(listNames);
+            }
+            printGroup("Grupo -> "+group);
         }
-        printGroup("Grupo -> "+group);
-    }
-    else{
-        group= "";
-        for(let j = 0; j < listNames.length; j++){
-            group = listNames[j] + " ";
+        else{
+            group= "";
+            for(let j = 0; j < listNames.length; j++){
+                group = group + listNames[j] + " ";
+            }
+            printGroup("Grupo -> "+group);
+            inputName.value = "";
+            listNames = [];
         }
-        printGroup("Grupo -> "+group);
+        let newString = " ";
+        for(let k = 0; k < listNames.length; k++){
+            newString = newString + listNames[k]+",";
+            inputName.value = newString.substring(0, newString.length-1);
+        }
     }
-    for(let k = 0; k < listNames.length; k++){
-        let newString = listNames[k]+","
-        document.getElementById("inputNames").value = newString.substring(0, newString.length-1);
-    }
+    
     
 
     
