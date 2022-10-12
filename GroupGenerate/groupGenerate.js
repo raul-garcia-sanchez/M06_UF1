@@ -1,27 +1,40 @@
 function getStringNames(){
     return document.getElementById("inputNames").value;
 }
+
 function generateList(text,separator){
     return text.split(separator);
 }
 
-function generateGroup(people,peopleInGroup){
+function generateGroup(){
     let stringNames = getStringNames();
     let listNames = generateList(stringNames,",");
-    let count = 0;
+    console.log(listNames);
     let group = "";
-    for(let i=0; i<people; i++){
-        let random = getRandom(0,listNames.length-1);
-        let alumnName = getAlumnByIndex(listNames,random);
-        listNames = deleteAlumnByIndex(listNames,random);
-        count = count +1;
-        group = group + alumnName + " ";
-        if (count % peopleInGroup == 0){
-            printGroup("Grupo -> " +group);
-            group = "";
+    if (listNames.length >=3){
+        for(let i=0; i<3; i++){
+            let random = getRandom(0,listNames.length);
+            let alumnName = getAlumnByIndex(listNames,random);
+            listNames = deleteAlumnByIndex(listNames,random);
+            group = group + alumnName + " ";
         }
+        printGroup("Grupo -> "+group);
     }
-    printGroup("Grupo -> "+group);
+    else{
+        group= "";
+        for(let j = 0; j < listNames.length; j++){
+            group = listNames[j] + " ";
+        }
+        printGroup("Grupo -> "+group);
+    }
+    for(let k = 0; k < listNames.length; k++){
+        let newString = listNames[k]+","
+        document.getElementById("inputNames").value = newString.substring(0, newString.length-1);
+    }
+    
+
+    
+    
 }
 
 function deleteAlumnByIndex(list,index){
@@ -40,7 +53,7 @@ function getAlumnByIndex(list,index){
 }
 
 function getRandom(min,max){
-    return Math.floor(Math.random()*(max))+min;
+    return Math.floor(Math.random()* (max-min)+min);
 }
 
 function printGroup(name){
